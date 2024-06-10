@@ -1,6 +1,6 @@
 const validator = require('validator');
 
-exports.validateSignup=(req, res, next)=> {
+const validateSignup=(req, res, next)=> {
     try {
         const { name, email, phone, password, age, address } = req.body;
 
@@ -36,7 +36,7 @@ exports.validateSignup=(req, res, next)=> {
 // module.exports = validateSignup;
 
 
-exports.validateLogin=(req, res, next)=> {
+const validateLogin=(req, res, next)=> {
     try {
         const { email,password } = req.body;
 
@@ -55,3 +55,5 @@ exports.validateLogin=(req, res, next)=> {
         });
     }
 }
+
+module.exports = {validateSignup,validateLogin}

@@ -1,15 +1,12 @@
 const validator = require('validator');
 
-exports.validateRole = (req,res,next)=>{
+const validateRole = (req,res,next)=>{
     try{
         //req and get data from client
-        const {email,role} = req.body;
+        const {title} = req.body;
 
         //validate
-        if(!email || !validator.isEmail(email)){
-            throw new Error("no user with this email")
-        }
-        if(!role){
+        if(!title){
             throw new Error("role is not mentioned")
         }
         next();
@@ -21,3 +18,5 @@ exports.validateRole = (req,res,next)=>{
         })
     }
 }
+
+module.exports = {validateRole}

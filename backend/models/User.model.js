@@ -38,12 +38,12 @@ const userSchema = mongoose.Schema({
     photo:{
         type : String,
     },
-    doctor_id:{
+    doctorId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Doctor",
         // required: true
     },
-    patient_id:{
+    patientId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Patient",
         // required: true

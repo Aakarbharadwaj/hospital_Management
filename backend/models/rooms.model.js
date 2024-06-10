@@ -5,18 +5,6 @@ const roomSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    roomNo:{
-        type:String,
-        required:true
-    },
-    booked:{
-        type:Boolean,
-        required:true
-    },
-    bookingtime:{
-        type:Date,
-        required:true
-    },
     roomNumber:{
         type:String,
         required:true
@@ -25,6 +13,15 @@ const roomSchema = mongoose.Schema({
         type:Number,
         required:true
     }
+    // booked:{
+    //     type:Boolean,
+    //     required:true,
+    //     default:false
+    // },
+    // bookingtime:{
+    //     type:Date,
+    //     required:true
+    // },
 })
 
 const Room = mongoose.model('Room',roomSchema);

@@ -3,11 +3,12 @@ const DoctorModel = require('../../models/Doctors.model');
 const PatientModel = require('../../models/Patient.model');
 const RoleModel = require('../../models/Role.model');
 const SpecialistModel = require('../../models/Specialisation.model');
+const {createToken} = require('../../utiles/auth') 
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-exports.createUser = async (req, res) => {
+const createUser = async (req, res) => {
     try {
         const { name, email, phone, password, address, role, speciality, photo, age } = req.body;
 
@@ -49,8 +50,7 @@ exports.createUser = async (req, res) => {
         // Create doctor or patient details based on role
         if (roleExists.title === 'doctor') { // Assuming 'title' field in Role model
             const doctorDetail = new DoctorModel({
-                name,
-                specialization: specialityExists.title, // Assuming 'title' field in Specialist model
+                education,
                 userId: user._id
             });
 
@@ -85,14 +85,15 @@ exports.createUser = async (req, res) => {
 
 // module.exports = {createUser};
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
             throw new Error("credential missing")
         }
-
+        // console.log(email).populate('doctorId','PatientID')
         const user = await UserModel.findOne({ email });
+        // console.log(user).populate('doctorId','PatientID')
 
         if (!user) {
             throw new Error("user not found")
@@ -109,10 +110,8 @@ exports.login = async (req, res) => {
             userId: user.id,
             role: user.role
         };
-
-        const token = jwt.sign(payLoad, process.env.JWT_SECRET, {
-            expiresIn: "10m"
-        })
+        const token = createToken(payLoad);
+        
         return res.status(200).json({
             message: "token sent successfully",
             token,
@@ -129,23 +128,23 @@ exports.login = async (req, res) => {
 
 }
 
-exports.logout = async (req, res) => {
-    try {
-        // Send an expired token (as an example, though typically handled client-side)
-        const expiredToken = jwt.sign({ user: 'expired' }, process.env.JWT_SECRET, { expiresIn: '1ms' });
+// exports.logout = async (req, res) => {
+//     try {
+//         // Send an expired token (as an example, though typically handled client-side)
+//         const expiredToken = jwt.sign({ user: 'expired' }, process.env.JWT_SECRET, { expiresIn: '1ms' });
 
-        // Return JSON response indicating logout success
-        return res.status(200).json({
-            message: 'Logout successful',
-            token: expiredToken
-        });
-    } catch (error) {
-        return res.status(400).json({
-            message: error.message || 'Something went wrong'
-        });
-    }
-};
+//         // Return JSON response indicating logout success
+//         return res.status(200).json({
+//             message: 'Logout successful',
+//             token: expiredToken
+//         });
+//     } catch (error) {
+//         return res.status(400).json({
+//             message: error.message || 'Something went wrong'
+//         });
+//     }
+// };
 
-// module.exports = { logout };
+module.exports = { createUser,login};
 
 
