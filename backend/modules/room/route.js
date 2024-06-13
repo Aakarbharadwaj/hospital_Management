@@ -1,14 +1,14 @@
 const express = require('express')
 const router = express.Router();
 
-const {validateRoom} = require('./validator')
-const {createRoom, getRoom ,deleteRoom,updateRoom} = require('./controller')
+// const {validateRoom} = require('./validator')
+const {createRoom, getAllRoom ,deleteRoom,updateRoom} = require('./controller')
 
 
-router.post('/add',validateRoom,createRoom);
-router.get('/',getRoom);
-router.get('/delete',deleteRoom);
-router.get('/update',updateRoom);
+router.post('/add',createRoom);
+router.get('/',getAllRoom);
+router.delete('/delete',deleteRoom);
+router.put('/update',updateRoom);
 
 
 module.exports = router;

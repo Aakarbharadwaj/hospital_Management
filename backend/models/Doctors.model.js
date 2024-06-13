@@ -1,37 +1,39 @@
 const mongoose = require('mongoose');
 
 const doctorDetailsSchema = mongoose.Schema({
-    cunsultingFee: {
+    consultingFee: {
         type: Number,
         required: true,
     },
     startTime: {
         type: Date,
-        required: true
+        // required: true
     },
     endTime: {
-        type: Number,
+        type: Date,
         required: true
     },
-    AvailableDays: [
+    availableDays: [
         {
             dayNumber: {
                 type: Number,
-                required: true
+                // required: true
             },
             slots :[{
                 startTime: {
                     type: Date,
-                    required: true
+                    // required: true
                 },
                 endTime: {
                     type: Date,
-                    required: true
+                    // required: true
                 }
             }]
         }
     ]
+  
 })
+
 
 const Doctor = mongoose.model("Doctor", doctorDetailsSchema);
 module.exports = Doctor;

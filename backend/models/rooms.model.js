@@ -6,7 +6,7 @@ const roomSchema = mongoose.Schema({
         required:true
     },
     roomNumber:{
-        type:String,
+        type:Number,
         required:true
     },
     price:{

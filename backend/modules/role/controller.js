@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose');
+// const { default: mongoose } = require('mongoose');
 const RoleModel = require('../../models/Role.model');
 
 async function createRole (req, res) {

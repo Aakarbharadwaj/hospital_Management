@@ -20,10 +20,10 @@ const appointmentSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    cunsultationTime: {
-        type: Date,
-        required: true
-    },
+    // cunsultation: {
+    //     type: Date,
+    //     required: true
+    // },
     cunsultationDate: {
         type: Date,
         required: true
@@ -32,19 +32,19 @@ const appointmentSchema = mongoose.Schema({
         type: Date,
         required: true
     },
-    TotalFee: {
-        type: Number,                //can we use ref instead of direct entry
-        required: true
-    },
+    // TotalFee: {
+    //     type: Number,                //can we use ref instead of direct entry
+    //     required: true
+    // },
     problemDescription: {
         type: String,
         required:true
     },
-    roomAloted:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Room",
-        required:true
-    }
+    // roomAloted:{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:"Room",
+    //     // required:true
+    // }
 });
 
 const Appointment = mongoose.model("Appointment", appointmentSchema);

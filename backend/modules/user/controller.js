@@ -2,15 +2,15 @@ const UserModel = require('../../models/User.model');
 const DoctorModel = require('../../models/Doctors.model');
 const PatientModel = require('../../models/Patient.model');
 const RoleModel = require('../../models/Role.model');
-const SpecialistModel = require('../../models/Specialisation.model');
-const {createToken} = require('../../utiles/auth') 
+// const SpecialistModel = require('../../models/Specialisation.model');
+const { createToken } = require('../../utiles/auth')
 const bcrypt = require('bcrypt')
 // const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const createUser = async (req, res) => {
     try {
-        const { name, email, phone, password, address, role, speciality, photo, age } = req.body;
+        const { name, email, phone, password, address, role, age, consultingFee, startTime, endTime, availableDays, } = req.body;
 
         // Check if user already exists
         const isUserExist = await UserModel.findOne({ email });
@@ -21,15 +21,14 @@ const createUser = async (req, res) => {
         // Validate role, speciality, and address
 
         const roleExists = await RoleModel.findById(role);
-        const specialityExists = await SpecialistModel.findById(speciality);
+        // const specialityExists = await SpecialistModel.findById(speciality);
 
         if (!roleExists) {
             throw new Error("Role does not exist");
         }
-        if (!specialityExists) {
-            throw new Error("Specialist does not exist");
-        }
-
+        // if (!specialityExists) {
+        //     throw new Error("Specialist does not exist");
+        // }
 
         // Create user object
         const user = new UserModel({
@@ -38,9 +37,9 @@ const createUser = async (req, res) => {
             phone,
             password,
             address,
-            role,
-            speciality,
-            photo,
+            role: roleExists._id,
+            // speciality,
+            // photo,
             age
         });
 
@@ -50,22 +49,25 @@ const createUser = async (req, res) => {
         // Create doctor or patient details based on role
         if (roleExists.title === 'doctor') { // Assuming 'title' field in Role model
             const doctorDetail = new DoctorModel({
-                education,
-                userId: user._id
+                consultingFee,
+                startTime,
+                endTime,
+                availableDays,
+                // userId: user._id
             });
 
             await doctorDetail.save();
-            user.doctor_id = doctorDetail._id;
+            user.doctorId = doctorDetail._id;
         } else {
             const patientDetail = new PatientModel({
                 name,
                 age,
                 medicalHistory: "", // Assuming default medical history
-                userId: user._id
+                // userId: user._id
             });
 
             await patientDetail.save();
-            user.patient_id = patientDetail._id;
+            user.patientId = patientDetail._id;
         }
 
         // Save the user again with the doctor/patient ID
@@ -111,7 +113,7 @@ const login = async (req, res) => {
             role: user.role
         };
         const token = createToken(payLoad);
-        
+
         return res.status(200).json({
             message: "token sent successfully",
             token,
@@ -145,6 +147,6 @@ const login = async (req, res) => {
 //     }
 // };
 
-module.exports = { createUser,login};
+module.exports = { createUser, login };
 
 

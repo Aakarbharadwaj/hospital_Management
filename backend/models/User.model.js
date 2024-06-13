@@ -29,15 +29,15 @@ const userSchema = mongoose.Schema({
     role: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role",
-        // required: true
+        required: true
     },
     // dob:{
     //     type : Date,
     //     required :true
     // },
-    photo:{
-        type : String,
-    },
+    // photo:{
+    //     type : String,
+    // },
     doctorId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Doctor",

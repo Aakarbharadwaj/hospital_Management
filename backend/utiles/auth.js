@@ -44,7 +44,7 @@ async function createToken(payLoad) {
         return token
     }
     catch(error){
-
+        "error forwarding"
     }
 }
 
