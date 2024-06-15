@@ -7,6 +7,7 @@ const createAppointment = async (req, res) => {
         const { doctorDetail, patientDetails, patientName, patientAge, cunsultationDate, bookingTime, problemDescription } = req.body;
 
         // Validate doctor and patient
+        
         const doctor = await UserModel.findById(doctorDetail);
         const patient = await UserModel.findById(patientDetails);
         if (!doctor || !patient) {

@@ -32,7 +32,7 @@ async function createRoom(req, res) {
 
 async function getAllRoom(req,res){
     try{
-        const room = await roomModel.find();
+        const room = await roomModel.find();            //use filter
         if(!room){
             throw new Error("no room found");
         }

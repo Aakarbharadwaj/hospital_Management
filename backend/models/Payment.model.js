@@ -27,7 +27,7 @@ const paymentSchema = new mongoose.Schema({
     },
     appointment: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Order',
+        ref: 'Appointment',
         required: true
     },
     transactionId: {

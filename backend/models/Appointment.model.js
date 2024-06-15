@@ -2,24 +2,24 @@ const mongoose = require('mongoose');
 // const User = require('./user.model');
 
 const appointmentSchema = mongoose.Schema({
-    doctorDetail: {
+    doctor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
-    patientDetails: {
+    patient: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
-    patientName: {
-        type: String,
-        required: true
-    },
-    patientAge: {
-        type: Number,
-        required: true
-    },
+    // patientName: {
+    //     type: String,
+    //     required: true
+    // },
+    // patientAge: {
+    //     type: Number,
+    //     required: true
+    // },
     // cunsultation: {
     //     type: Date,
     //     required: true
@@ -40,6 +40,8 @@ const appointmentSchema = mongoose.Schema({
         type: String,
         required:true
     },
+    bookingtype
+    intm ,outtime
     // roomAloted:{
     //     type:mongoose.Schema.Types.ObjectId,
     //     ref:"Room",

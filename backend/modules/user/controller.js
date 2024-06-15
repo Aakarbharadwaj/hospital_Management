@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const createUser = async (req, res) => {
     try {
-        const { name, email, phone, password, address, role, age, consultingFee, startTime, endTime, availableDays, } = req.body;
+        const { name, email, phone, password, address, role, age, consultingFee, startTime, endTime, availableDays,mode,doctor } = req.body;
 
         // Check if user already exists
         const isUserExist = await UserModel.findOne({ email });
@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
         }
 
         // Validate role, speciality, and address
-
+        // const doctorExist =await DoctorModel.findById(doctor)
         const roleExists = await RoleModel.findById(role);
         // const specialityExists = await SpecialistModel.findById(speciality);
 
@@ -60,9 +60,9 @@ const createUser = async (req, res) => {
             user.doctorId = doctorDetail._id;
         } else {
             const patientDetail = new PatientModel({
-                name,
-                age,
-                medicalHistory: "", // Assuming default medical history
+                doctor:doctorExist._id,
+                mode
+                // medicalHistory: "", // Assuming default medical history
                 // userId: user._id
             });
 
@@ -130,6 +130,35 @@ const login = async (req, res) => {
 
 }
 
+async function getAllusers(req,res) {
+    try{
+        const {
+            limit=20,
+            skip=0,
+            id,
+            filter:{name,age}
+        }=req.query;
+        const filterObj = {};
+        if(id){
+            filterObj._id = id;
+        }
+        if(name){
+            filterObj.name = new RegExp(name);
+        }
+        if(age){
+            filterObj.age = {
+                $gte : age
+            };
+        }
+        const users = await UserModel.find(filterObj).limit(limit).skip(skip)
+    }
+    catch(error){
+        return res.status(400).json({
+            message: error.message || 'Something went wrong',
+            code: error.code || 400
+        });
+    }
+}
 // exports.logout = async (req, res) => {
 //     try {
 //         // Send an expired token (as an example, though typically handled client-side)
@@ -147,6 +176,6 @@ const login = async (req, res) => {
 //     }
 // };
 
-module.exports = { createUser, login };
+module.exports = { createUser, login ,getAllusers};
 
 

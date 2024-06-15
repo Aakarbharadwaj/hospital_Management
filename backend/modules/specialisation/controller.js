@@ -30,7 +30,7 @@ async function createSpecialisation(req, res) {
 
 async function getAllSpecialisation(req, res) {
     try {
-        const specialisation = await specialisationModel.find();
+        const specialisation = await specialisationModel.find();            //use filter
         return res.status(200).json({
             specialisation,
             message: "specialisation list fetched successfully",
@@ -49,7 +49,7 @@ async function deleteSpecialisation(req, res) {
         if (!title) {
             throw new Error("no such specialisation found");
         }
-        await specialisationModel.findOneAndDelete({ title: title })
+        await specialisationModel.findOneAndDelete({ title: title })                //use id to delete
 
         return res.status(200).json({
             message: "specialisation deleted successfully",

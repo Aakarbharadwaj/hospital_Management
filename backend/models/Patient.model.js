@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 
 const patientSchema = mongoose.Schema({
-    problem: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"Specialist"
-    },
+    // problem: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref:"Specialist"
+    // },
     doctor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Doctor"
     },
     mode: {
         type: String,              
-        enum:["cunsult","admit"]
+        enum:["consult","admit"]
         // requied: true
     }
 });
