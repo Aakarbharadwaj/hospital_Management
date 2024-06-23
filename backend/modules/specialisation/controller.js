@@ -15,7 +15,7 @@ async function createSpecialisation(req, res) {
         await newSpecialisation.save()
 
         return res.status(200).json({
-            newRole,
+            newSpecialisation,
             message: "specialisation added successfully",
         });
     } catch (error) {

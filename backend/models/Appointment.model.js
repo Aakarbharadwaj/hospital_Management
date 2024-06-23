@@ -12,18 +12,18 @@ const appointmentSchema = mongoose.Schema({
         ref: "User",
         required: true
     },
-    // patientName: {
-    //     type: String,
-    //     required: true
-    // },
-    // patientAge: {
-    //     type: Number,
-    //     required: true
-    // },
-    // cunsultation: {
-    //     type: Date,
-    //     required: true
-    // },
+    bookingtype:{
+        type:String,
+        required:true
+    },
+    room:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Room"
+    },
+    problem:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Specialist"
+    },
     cunsultationDate: {
         type: Date,
         required: true
@@ -32,16 +32,16 @@ const appointmentSchema = mongoose.Schema({
         type: Date,
         required: true
     },
-    // TotalFee: {
-    //     type: Number,                //can we use ref instead of direct entry
-    //     required: true
-    // },
     problemDescription: {
         type: String,
         required:true
     },
-    bookingtype
-    intm ,outtime
+    // TotalFee: {
+    //     type: Number,                //can we use ref instead of direct entry
+    //     required: true
+    // },
+    // bookingtype
+    // intm ,outtime
     // roomAloted:{
     //     type:mongoose.Schema.Types.ObjectId,
     //     ref:"Room",
